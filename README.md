@@ -62,23 +62,78 @@ The objective of this project was to create a virtual cybersecurity testing envi
 ## Screenshots
 
 The screenshots folder contains evidence of:
-
-- VirtualBox installation
+- Kali Installation
+![VirtualBox interface](screenshots/01-Kali-installation.jpeg)
 - NAT Network configuration
+![VirtualBox interface](screenshots/02-nat-network-config.jpeg)
 - Kali Linux virtual machine settings
-- Shared folder configuration
-- Network configuration
-- Internet connectivity verification
-- Virtual machine snapshot
+  ![VirtualBox interface](screenshots/03-kali-vm-settings.jpeg)
+- Kali Linux Static IP Configuration
+![VirtualBox interface](screenshots/04-kali-ip-config.jpeg)
+- Shared Folder Configuartion
+  ![VirtualBox interface](screenshots/05-shared-folder.jpeg)
+- Clipboard and Drag & Drop Settings
+ ![VirtualBox interface](screenshots/06-clipboard-dragdrop.jpeg)
+- Internet Connectivity Verfication
+ ![VirtualBox interface](screenshots/07-internet-fconnectivity.jpeg)
+- Virtual Machine Snapshot
+![VirtualBox interface](screenshots/08-vm-snapshot.jpeg)
+ ---
+## 🐞 Challenges Encountered and Solutions
 
----
 
-## Challenges and Solutions
+### Challenge 1: Internet Connectivity After Static IP Configuration
 
-Any challenges encountered during the setup process and their corresponding solutions will be documented here.
 
----
+**Problem:** After configuring a static IP address on Kali Linux, internet connectivity may fail because of network configuration issues.
 
+
+**Solution:** The network connection settings were checked to identify the cause. One possible workaround for a specific NetworkManager configuration is:
+
+
+```bash
+sudo nmcli connection modify "Wired connection 1" ipv4.dad-timeout 0
+```
+
+
+The network connection can then be restarted and connectivity tested again.
+
+
+**Verification:** Test the connection using:
+
+
+```bash
+ping -c 4 8.8.8.8
+getent hosts google.com
+```
+
+
+**Note:** The connection name may differ between systems. Identify the correct connection before running the command. The `ipv4.dad-timeout` setting is not a general fix for internet connectivity problems, so use it only when appropriate to the diagnosed issue.
+
+
+### Challenge 2: VirtualBox Hardware Virtualisation Error
+
+
+**Problem:** A virtual machine may fail to start if hardware virtualisation is disabled or unavailable.
+
+
+**Solution:** Check whether hardware virtualisation is enabled in the computer's BIOS/UEFI settings. If it is disabled, enable the appropriate virtualisation option, such as Intel VT-x or AMD-V, save the settings, and restart the computer.
+
+
+**Verification:** Start the Kali Linux virtual machine again and confirm that it boots successfully.
+
+
+### Lessons Learned
+
+
+These troubleshooting scenarios demonstrate the importance of checking both the host's virtualisation configuration and the guest operating system's network settings. Systematic testing helps identify the cause of a problem before applying a solution.
+
+## 🔗 10. Official Resources
+
+- [Oracle VirtualBox Downloads](https://www.virtualbox.org/wiki/Downloads)
+- [Oracle VirtualBox User Manual](https://www.virtualbox.org/manual/)
+- [Download Kali Linux](https://www.kali.org/get-kali/)
+- [Kali Linux Documentation](https://www.kali.org/docs/)
 ## Conclusion
 
 This project successfully established a virtual cybersecurity laboratory environment using Oracle VirtualBox and Kali Linux. The configured environment provides a foundation for future cybersecurity and ethical hacking practical exercises.
